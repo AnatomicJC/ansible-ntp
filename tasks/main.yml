@@ -1,0 +1,4 @@
+- import_tasks: sysvinit.yml
+  when: ansible_service_mgr == 'sysvinit'
+- import_tasks: systemd.yml
+  when: ansible_service_mgr == 'systemd'

@@ -1,0 +1,6 @@
+---
+- name: Restart ntp
+  service:
+    name: "{{ ntp_service_name }}"
+    state: "restarted"
+  when: ntp_service_enabled == 'yes'

@@ -1,0 +1,12 @@
+---
+- name: Remove installed ntp packages
+  apt:
+    name: "*ntp*"
+    state: absent
+    purge: yes
+
+- name: Enable systemd-timesyncd service
+  systemd:
+    name: "systemd-timesyncd"
+    enabled: yes
+    state: started

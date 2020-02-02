@@ -1,0 +1,3 @@
+include:
+  - project: 'AnatomicJC/gitlab-ci-templates'
+    file: '/ansible-role-linter.yml'

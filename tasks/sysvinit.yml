@@ -1,0 +1,21 @@
+---
+- name: Install the required packages in Debian derivatives
+  apt:
+    name: "ntp"
+    state: "{{ 'absent' if ansible_virtualization_type == 'lxc' else 'latest' }}"
+    purge: "{{ 'yes' if ansible_virtualization_type == 'lxc' else 'no' }}"
+
+- name: Copy the ntp.conf template file
+  template:
+    src: "etc/ntp.conf.j2"
+    dest: "/etc/ntp.conf"
+  notify:
+    - Restart ntp
+  when: ansible_virtualization_type != "lxc"
+
+- name: Start/stop ntp service
+  service:
+    name: "{{ ntp_service_name }}"
+    state: "{{ ntp_service_state }}"
+    enabled: "{{ ntp_service_enabled }}"
+  when: ntp_service_enabled == 'yes' and ansible_virtualization_type != "lxc"
